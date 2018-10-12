@@ -1,0 +1,22 @@
+{
+  "name": "tada-discord",
+  "version": "1.0.0",
+  "description": "Discord Bot for dramatic entrances",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cavejay/tada-discord.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cavejay/tada-discord/issues"
+  },
+  "homepage": "https://github.com/cavejay/tada-discord#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}
