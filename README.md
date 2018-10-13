@@ -5,7 +5,7 @@ Discord Bot for dramatic entrances
 ## todo
 
 - [x] Action when user joins a voice channel
-- [ ] Play a 'noise' when user joins a voice channel
+- [x] Play a 'noise' when user joins a voice channel - _this is beautiful_
 - [ ] Play a user specific noise when a user joins vc
 - [ ] Persistent Backend for Configuration
 - [ ] Entry/exit time-out to prevent spam
