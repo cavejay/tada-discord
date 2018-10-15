@@ -11,3 +11,4 @@ Discord Bot for dramatic entrances
 - [ ] Entry/exit time-out to prevent spam
 - [ ] Collision avoidance if more than one user joins
 - [ ] Storage of user specified sound-bytes
+- [ ] Dockerfile w/ build
