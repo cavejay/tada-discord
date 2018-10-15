@@ -9,10 +9,11 @@ db.raw = new Datastore({
   autoload: true
 });
 
-db.makeUser = async function(user) {
+db.makeUser = async function(username, userid) {
   p.info(`Making new user ${user}`);
-  const res = await db.raw.insert({userID: user, intro: "tada"});
+  const res = await db.raw.insert({userID: userid, name: username, intro: "tada"});
   p.info(res)
+  return res
 }
 
 db.getUserIntro = async function (user) {
