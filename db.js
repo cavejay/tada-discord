@@ -9,6 +9,10 @@ db.raw = new Datastore({
   autoload: true
 });
 
+db.bootReport = async function () {
+  p.info("This would be the on boot report for the database")
+}
+
 db.makeUser = async function(username, userid) {
   p.info(`Making new user ${username}`);
   const res = await db.raw.insert({userID: userid, name: username, intro: "tada"});
@@ -24,7 +28,7 @@ db.getUserIntro = async function (user) {
 
 db.setUserIntro = async function (userid, intro) {
   p.info(`Updating user '${userid}' to have the intro: '${intro}'`)
-  const res = await db.raw.update({userID: userid}, {intro: intro})
+  const res = await db.raw.update({userID: userid}, { $set: {intro: intro}})
   return res
 }
 
@@ -37,5 +41,7 @@ db.getUser = async function(user) {
   p.info(res)
   return res;
 };
+
+db.bootReport()
 
 module.exports = db;

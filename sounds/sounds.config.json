@@ -1,5 +1,6 @@
 {
     "cheers": "./sounds/cheers.mp3",
-    "explosion": "./sounds/spolsion.mp3",
-    "tada": "./sounds/tada.mp3"
+    "explosion": "./sounds/splosion.mp3",
+    "tada": "./sounds/tada.mp3",
+    "wololo": "./sounds/wololo.mp3"
 }

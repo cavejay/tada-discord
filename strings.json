@@ -1,0 +1,3 @@
+{
+    "newUserText": "Hi! Did you hear your intro?\n You can update it by replying to this message with the following command:\n    `!tada intro <intro type>` \n Where <intro type> can be either 'tada', 'cheers', 'explosion' or 'wololo'\n\nIf you do not want an intro to play when you join voice channels then use: `!tada disable`"
+}
