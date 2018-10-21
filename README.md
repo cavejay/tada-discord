@@ -18,3 +18,6 @@ Discord Bot for dramatic entrances
 - [ ] Entry/exit time-out to prevent spam
 - [ ] Storage of user specified sound-bytes
 - [ ] Dockerfile w/ build
+
+
+https://github.com/fent/node-ytdl-core

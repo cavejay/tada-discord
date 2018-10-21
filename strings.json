@@ -1,3 +1,4 @@
 {
-    "newUserText": "Hi! Did you hear your intro?\n You can update it by replying to this message with the following command:\n    `!tada intro <intro type>` \n Where <intro type> can be listed be running `!tada listintro`\n\nIf you do not want an intro to play when you join voice channels then use: `!tada disable`"
+    "newUserText": "Hi! Did you hear your intro?\n You can update it by replying to this message with the following command:\n    `!tada set intro <introname>` \n Where <introname> can be listed be running `!tada get intro all`\n\nIf you do not want an intro to play when you join voice channels then use: `!tada disable`",
+    "helpText": "This is the super helpful text that appears when you run !tada help"
 }

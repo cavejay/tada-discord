@@ -3,13 +3,8 @@ const client = new Discord.Client(); // Create an instance of a Discord client
 const p = require("./loggerFactory")("Bot");
 const soundsMeta = require('./sounds/sounds.config.json')
 const strings = require('./strings.json')
+const Commands = require('./commands.js')
 const nodeCleanup = require('node-cleanup')
-
-const validCommands = {
-    "intro":"",
-    "listintro":"",
-    "disable": ""
-}
 
 function resolveID(id){
     return client.fetchUser(id).displayName
@@ -61,30 +56,22 @@ async function handleVoiceChannelEvent (member,channel,db,config) {
     });
 }
 
-async function handleUserIntroConfig (m,db,config) {
-    let words = m.content.split(' ')
-    let introChoice = words.slice(2,words.length).join(' ')
-    p.info(`User ${m.author.username} is claiming they want to use the '${introChoice}' intro.`)
-
-    // Validate the intro they've asked to use.
-    if (!Object.keys(soundsMeta).includes(introChoice)) {
-        p.info(`${introChoice} is not a valid intro. Informing user now.`)
-        m.reply(`The intro '${introChoice}' is not available. Please pick from the list provided by the \`!tada listintros\` command.`)
+async function argHandler(args) {
+    // If there was nothing past the '!tada' then message the user and move on.
+    if (args.length === 1) {
+        message.reply("Current command options for use with this bot are: \n" + Object.keys(Commands.meta).join(', '))
+        p.info("User did not supply any commands. Will now inform them of current command options")
         return
-    } 
-
-    // If it matches then update the database?
-    p.info(`Updating user '${m.author.username}''s registered intro to: ${introChoice}`)
-    try {
-        await db.setUserIntro(m.author.id, introChoice)
-    } catch (err) {
-        m.reply("Something went wrong and I was unable to update your introduction. I've logged the error though and have contacted @cavejay#2808")
-        p.error(err)
     }
 
-    p.info(`Intro update for ${m.author.username} was successful`)
-    m.reply(`Update successful! Your intro is now '${introChoice}'`) 
-    // todo also provide a soft reset of the timer here so that they can hear it immediately. Do not let them spam through this though, so max of 5? 
+    // Validate that the message contains a valid command
+    if (!Object.keys(Commands.meta).includes(args[1])) {
+        message.reply(`Sorry, I don't recognise the command '${args[1]}'`)
+        p.info(`User entered unrecognised command '${args[1]}'`)
+        return
+    }
+
+    return Commands.cmd[args[1]]
 }
 
 // Configure node to logout before closing
@@ -184,40 +171,11 @@ module.exports = function bot (db, config) {
         // split out the args
         let args = message.content.split(' ')
 
-        // If there was nothing past the '!tada' then message the user and move on.
-        if (args.length === 1) {
-            message.reply("Current command options for use with this bot are: \n" + Object.keys(validCommands).join(', '))
-            p.info("User did not supply any commands. Will now inform them of current command options")
-            return
-        }
+        // Let the handler deal with it now
+        let command = await argHandler(args)
+        
+        command(args, {message: message, db: db})
 
-        // Validate that the message contains a valid command
-        if (!Object.keys(validCommands).includes(args[1])) {
-            message.reply(`Sorry, I don't recognise the command '${args[1]}'`)
-            p.info(`User entered unrecognised command '${args[1]}'`)
-            return
-        }
-
-        // Action the command that is sent
-        switch (args[1]) {
-            case 'intro':
-                p.info(`Handling 'intro' command for '${message.content}'`)
-                await handleUserIntroConfig(message, db, config)
-                break;
-            case 'listintro':
-                p.info(`Handling 'listintro' command for '${message.content}'`)
-                await message.reply(`Currently available intros include: ${Object.keys(soundsMeta)}`)
-                break;
-            case 'disable':
-                p.info(`Handling 'disable' command for '${message.content}'`)
-                await db.setUserIntro(message.author.id, 'null')
-                await message.reply(`Your user settings have been updated to prevent me from playing an intro for you`)
-                break;
-            default: 
-                p.warning("We should not have been able to get to the default case of the argument switch.")
-                await message.reply(`There was a bot-side error`)
-                directMessageUser(config.author, "Check Logs. There was something weird with the arguments switch")
-        }
     })
 
     return client
