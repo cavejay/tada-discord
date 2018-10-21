@@ -22,81 +22,42 @@ function directMessageUser(userID, message) {
         .catch(p.error);
 }
 
-function handleVoiceChannelEvent (db,config) {
-    return async (oldMember, newMember) => {
-        let newUserChannel = newMember.voiceChannel;
-        let oldUserChannel = oldMember.voiceChannel;
-        
-        // IF the user is joining a channel
-        if (oldUserChannel === undefined && newUserChannel !== undefined) {
-            // If it's me (the bot) I don't care. plz check
-            if (newMember.id === client.user.id) return
-
-            let msg = `${newMember.displayName} joined channel ${newUserChannel.name}`;
-            
-            // User Joins a voice channel
-            directMessageUser(config.owner, msg) //message bot owner
-
-            // If it's not me (the owner) then also skip
-            // if (newMember.id !== config.owner) return
-            
-            // Make sure I have the correct permissions to access the channel!
-            
-            // If we can't resolve the userchannel lets just skip
-            if (!newUserChannel) return
-
-            // Is this a new user?
-            if (null === await db.getUser(newMember.id)) {
-                // new users get the basic 'tada' and a PM!
-                directMessageUser(newMember.id, strings.newUserText)
-                await db.makeUser(newMember.displayName, newMember.id)
-            }
-            
-            let soundKey = await db.getUserIntro(newMember.id)
-
-            // If the user did not want an intro then leave now.
-            if (soundKey === 'null') {
-                return
-            }
-
-            let soundFile = soundsMeta[soundKey]
-
-            let connection = await newUserChannel.join()
-            p.info(`Bot has joined channel ${newUserChannel.name} to 'tada' ${newMember.displayName} with preferred sound of '${soundKey}'`);
-                
-            // create the dispatcher to play the tada noise
-            const dispatcher = await connection.playFile(soundFile);
-                    
-            // when it ends let us know
-            dispatcher.on("end", () => {
-                // log finishing
-                p.info(`Bot has finished 'tadaing' ${newMember.displayName} in channel ${newUserChannel.name}`);
-                
-                // leave the channel
-                newUserChannel.leave()
-            });
-            
-            dispatcher.on("error", err => {
-                p.error('dispatcher error:', err);
-            });
-            
-        } else if (newUserChannel === undefined) {
-            let msg = `${oldMember.displayName} left channel ${oldUserChannel.name}`;
-            
-            // User leaves a voice channel and we're still in it
-            if (oldUserChannel.members.keyArray.length === 1) {
-                try {
-                    p.info("There's only one person left in the voice channel, lets try to leave it incase it's us")
-                    oldUserChannel.leave()
-                } catch (e){
-                    p.error(e)
-                }
-            }
-
-            // If we're left alone in the vc then leave
-            p.info(msg);
-        }
+async function handleVoiceChannelEvent (member,channel,db,config) {   
+    // Is this a new user?
+    if (null === await db.getUser(member.id)) {
+        // new users get the basic 'tada' and a PM!
+        directMessageUser(member.id, strings.newUserText)
+        await db.makeUser(member.displayName, member.id)
     }
+    
+    let soundKey = await db.getUserIntro(member.id)
+
+    // If the user did not want an intro then leave now.
+    if (soundKey === 'null') {
+        return
+    }
+
+    let soundFile = soundsMeta[soundKey]
+
+    let connection = await channel.join()
+    p.info(`Bot has joined channel ${channel.name} to 'tada' ${member.displayName} with preferred sound of '${soundKey}'`);
+        
+    // create the dispatcher to play the tada noise
+    const dispatcher = await connection.playFile(soundFile);
+    p.info(`Playing from ${soundFile}`)
+            
+    // when it ends let us know
+    dispatcher.on("end", () => {
+        // log finishing
+        p.info(`Bot has finished 'tadaing' ${member.displayName} in channel ${channel.name}`);
+        
+        // leave the channel
+        channel.leave()
+    });
+    
+    dispatcher.on("error", err => {
+        p.error('dispatcher error:', err);
+    });
 }
 
 async function handleUserIntroConfig (m,db,config) {
@@ -139,7 +100,51 @@ module.exports = function bot (db, config) {
         p.error('client error:', e)
     });
     
-    client.on("voiceStateUpdate", handleVoiceChannelEvent(db,config));
+    client.on("voiceStateUpdate", async function (oldMember, newMember) {
+        let newUserChannel = newMember.voiceChannel;
+        let oldUserChannel = oldMember.voiceChannel;
+        
+        // If the user is joining a channel
+        if (oldUserChannel === undefined && newUserChannel !== undefined) {
+            // If it's me (the bot) I don't care. plz check
+            if (newMember.id === client.user.id) return
+            
+            // If it's another bot then also don't join. That would be bad
+            if (newMember.user.bot) return
+
+            let msg = `${newMember.displayName} joined channel ${newUserChannel.name}`;
+            
+            // User Joins a voice channel
+            directMessageUser(config.owner, msg) // message bot owner
+
+            // If it's not me (the owner) then also skip
+            // if (newMember.id !== config.owner) return
+            
+            // Make sure I have the correct permissions to access the channel!
+            
+            // If we can't resolve the userchannel lets just skip
+            if (!newUserChannel) return
+
+            // handle the entry
+            await handleVoiceChannelEvent(newMember, newUserChannel, db, config)
+            
+        } else if (newUserChannel === undefined) {
+            let msg = `${oldMember.displayName} left channel ${oldUserChannel.name}`;
+            
+            // If user leaves a voice channel and we're still in it
+            if (oldUserChannel.members.keyArray.length === 1) {
+                try {
+                    p.info("There's only one person left in the voice channel, lets try to leave it incase it's us")
+                    oldUserChannel.leave()
+                } catch (e){
+                    p.error(e)
+                }
+            }
+
+            // If we're left alone in the vc then leave
+            p.info(msg);
+        }
+    })
 
     client.on("message", async function (message) {
          // If it's me (the bot) I don't care. plz check
@@ -155,13 +160,13 @@ module.exports = function bot (db, config) {
             return
         }
 
-        // String out the args
+        // split out the args
         let args = message.content.split(' ')
 
         // If there was nothing past the '!tada' then message the user and move on.
         if (args.length === 1) {
-            p.info("User did not supply any commands. Will now inform them of current command options")
             message.reply("Current command options for use with this bot are: \n" + Object.keys(validCommands).join(', '))
+            p.info("User did not supply any commands. Will now inform them of current command options")
             return
         }
 
@@ -190,7 +195,7 @@ module.exports = function bot (db, config) {
             default: 
                 p.warning("We should not have been able to get to the default case of the argument switch.")
                 await message.reply(`There was a bot-side error`)
-                await directMessageUser(config.author, "Check Logs. There was something weird with the arguments switch")
+                directMessageUser(config.author, "Check Logs. There was something weird with the arguments switch")
         }
     })
 

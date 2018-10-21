@@ -2,5 +2,6 @@
     "cheers": "./sounds/cheers.mp3",
     "explosion": "./sounds/splosion.mp3",
     "tada": "./sounds/tada.mp3",
-    "wololo": "./sounds/wololo.mp3"
+    "wololo": "./sounds/wololo.mp3",
+    "spaghetti": "./sounds/spaghet.mp3"
 }
