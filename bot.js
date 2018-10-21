@@ -3,6 +3,7 @@ const client = new Discord.Client(); // Create an instance of a Discord client
 const p = require("./loggerFactory")("Bot");
 const soundsMeta = require('./sounds/sounds.config.json')
 const strings = require('./strings.json')
+const nodeCleanup = require('node-cleanup')
 
 const validCommands = {
     "intro":"",
@@ -86,6 +87,20 @@ async function handleUserIntroConfig (m,db,config) {
     // todo also provide a soft reset of the timer here so that they can hear it immediately. Do not let them spam through this though, so max of 5? 
 }
 
+// Configure node to logout before closing
+nodeCleanup(function (exitCode, signal) {
+    if (signal) {
+        p.info("Process has been cancelled. Will attempt to close connection with Discord gracefully")
+        client.destroy().then(() => {
+            // calling process.exit() won't inform parent process of signal
+            p.info("Exiting now...")
+            process.kill(process.pid, signal);
+        });
+        nodeCleanup.uninstall(); // don't call cleanup handler again
+        return false;
+    }
+});
+
 module.exports = function bot (db, config) {
     /**
      * The ready event is vital, it means that only _after_ this will your bot start reacting to information
@@ -93,8 +108,13 @@ module.exports = function bot (db, config) {
      */
     client.on("ready", () => {
         p.info("We're online!");
+        
+        // Set the client user's presence
+        client.user.setPresence({ game: { name: '!tada <command>' }})
+            .then(() => p.info("Set bot's 'playing' status to '!tada <command>'"))
+            .catch(p.error);
     });
-    
+
     // let us know about errors
     client.on("error", e => {
         p.error('client error:', e)
@@ -121,7 +141,8 @@ module.exports = function bot (db, config) {
             // if (newMember.id !== config.owner) return
             
             // Make sure I have the correct permissions to access the channel!
-            
+            // todo
+
             // If we can't resolve the userchannel lets just skip
             if (!newUserChannel) return
 

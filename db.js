@@ -11,6 +11,12 @@ db.raw = new Datastore({
 
 db.bootReport = async function () {
   p.info("This would be the on boot report for the database")
+  
+  // User count and list
+
+  // Intro count, list and spread.
+
+  
 }
 
 db.makeUser = async function(username, userid) {

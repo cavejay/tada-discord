@@ -9,3 +9,4 @@ const Bot = require('./bot')(db, config);
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
 Bot.login(config.auth.bot.token);
+
