@@ -3,5 +3,9 @@
     "explosion": "./sounds/splosion.mp3",
     "tada": "./sounds/tada.mp3",
     "wololo": "./sounds/wololo.mp3",
-    "spaghetti": "./sounds/spaghet.mp3"
+    "spaghetti": "./sounds/spaghet.mp3",
+    "itiswednesday": "./sounds/itiswednesday.mp3",
+    "tooadventure": "./sounds/Pedros_intro.mp3",
+    "bitchonapension": "./sounds/Cassidy_intro.mp3",
+    "whereismypet": "./sounds/Emmys_Intro.mp3"
 }

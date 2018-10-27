@@ -1,4 +1,8 @@
 {
+  "newUserDefault": {
+    "type": "file",
+    "key": "tada"
+  },
   "prefix": "!",
   "owner": "asdfadsfasdf",
   "auth": {

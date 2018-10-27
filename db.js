@@ -15,13 +15,11 @@ db.bootReport = async function () {
   // User count and list
 
   // Intro count, list and spread.
-
-  
 }
 
-db.makeUser = async function(username, userid) {
+db.makeUser = async function(username, userid, defaultUserConfig) {
   p.info(`Making new user ${username}`);
-  const res = await db.raw.insert({userID: userid, name: username, intro: "tada"});
+  const res = await db.raw.insert({userID: userid, name: username, intro: defaultUserConfig});
   p.info(res)
   return res
 }
@@ -33,7 +31,7 @@ db.getUserIntro = async function (user) {
 }
 
 db.setUserIntro = async function (userid, intro) {
-  p.info(`Updating user '${userid}' to have the intro: '${intro}'`)
+  p.info(`Updating user '${userid}' to have the intro: '${JSON.stringify(intro)}'`)
   const res = await db.raw.update({userID: userid}, { $set: {intro: intro}})
   return res
 }

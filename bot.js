@@ -1,10 +1,25 @@
 const Discord = require("discord.js"); // Import the discord.js module
 const client = new Discord.Client(); // Create an instance of a Discord client
 const p = require("./loggerFactory")("Bot");
-const soundsMeta = require('./sounds/sounds.config.json')
-const strings = require('./strings.json')
-const Commands = require('./commands.js')
-const nodeCleanup = require('node-cleanup')
+const soundsMeta = require('./sounds/sounds.config.json');
+const strings = require('./strings.json');
+const Commands = require('./commands.js');
+const nodeCleanup = require('node-cleanup');
+const ytdl = require('ytdl-core');
+
+// Configure node to logout before closing
+nodeCleanup(function (exitCode, signal) {
+    if (signal) {
+        p.info("Process has been cancelled. Will attempt to close connection with Discord gracefully")
+        client.destroy().then(() => {
+            // calling process.exit() won't inform parent process of signal
+            p.info("Exiting now...")
+            process.kill(process.pid, signal);
+        });
+        nodeCleanup.uninstall(); // don't call cleanup handler again
+        return false;
+    }
+});
 
 function resolveID(id){
     return client.fetchUser(id).displayName
@@ -18,30 +33,48 @@ function directMessageUser(userID, message) {
         .catch(p.error);
 }
 
-async function handleVoiceChannelEvent (member,channel,db,config) {   
+async function handleVoiceChannelEvent (member,channel,db,config) {
     // Is this a new user?
     if (null === await db.getUser(member.id)) {
         // new users get the basic 'tada' and a PM!
+        p.info(`${member.displayName} is not a known user. Creating instance for them now`)
         directMessageUser(member.id, strings.newUserText)
-        await db.makeUser(member.displayName, member.id)
+        await db.makeUser(member.displayName, member.id, config.newUserDefault )
     }
     
-    let soundKey = await db.getUserIntro(member.id)
-
-    // If the user did not want an intro then leave now.
-    if (soundKey === 'null') {
+    // get the information from the db
+    let chosenIntro = await db.getUserIntro(member.id)
+    if (chosenIntro === 'null') {
+        p.error("Something went wrong and we couldn't get the user data?")
         return
     }
+    
+    let dispatcher
 
-    let soundFile = soundsMeta[soundKey]
-
-    let connection = await channel.join()
-    p.info(`Bot has joined channel ${channel.name} to 'tada' ${member.displayName} with preferred sound of '${soundKey}'`);
+    // stream yt
+    if (chosenIntro.type === "yt") {
+        let connection = await channel.join()
+        p.info(`Bot has joined channel ${channel.name} to 'tada' ${member.displayName} with a snippet from a youtube video: '${chosenIntro.url}'`);
         
-    // create the dispatcher to play the tada noise
-    const dispatcher = await connection.playFile(soundFile);
-    p.info(`Playing from ${soundFile}`)
+        const streamOptions = { seek: 0, volume: 1 };
+        const stream = ytdl(chosenIntro.url, { filter : 'audioonly' });
+
+        // create the dispatcher to play the tada noise
+        dispatcher = await connection.playStream(stream, streamOptions);
+        p.info(`Playing from ${chosenIntro.url}`)
+
+    // play a sound
+    } else if (chosenIntro.type === "file") {
+        let soundFile = soundsMeta[chosenIntro.key]
+    
+        let connection = await channel.join()
+        p.info(`Bot has joined channel ${channel.name} to 'tada' ${member.displayName} with preferred sound of '${chosenIntro.key}'`);
             
+        // create the dispatcher to play the tada noise
+        dispatcher = await connection.playFile(soundFile);
+        p.info(`Playing from ${soundFile}`)
+    }
+
     // when it ends let us know
     dispatcher.on("end", () => {
         // log finishing
@@ -56,7 +89,7 @@ async function handleVoiceChannelEvent (member,channel,db,config) {
     });
 }
 
-async function argHandler(args) {
+async function argHandler(args, {message}) {
     // If there was nothing past the '!tada' then message the user and move on.
     if (args.length === 1) {
         message.reply("Current command options for use with this bot are: \n" + Object.keys(Commands.meta).join(', '))
@@ -73,20 +106,6 @@ async function argHandler(args) {
 
     return Commands.cmd[args[1]]
 }
-
-// Configure node to logout before closing
-nodeCleanup(function (exitCode, signal) {
-    if (signal) {
-        p.info("Process has been cancelled. Will attempt to close connection with Discord gracefully")
-        client.destroy().then(() => {
-            // calling process.exit() won't inform parent process of signal
-            p.info("Exiting now...")
-            process.kill(process.pid, signal);
-        });
-        nodeCleanup.uninstall(); // don't call cleanup handler again
-        return false;
-    }
-});
 
 module.exports = function bot (db, config) {
     /**
@@ -172,7 +191,7 @@ module.exports = function bot (db, config) {
         let args = message.content.split(' ')
 
         // Let the handler deal with it now
-        let command = await argHandler(args)
+        let command = await argHandler(args, {message: message})
         
         command(args, {message: message, db: db})
 
