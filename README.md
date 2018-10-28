@@ -11,7 +11,7 @@ Discord Bot for dramatic entrances
 - [x] 'Playing Status'
 - [x] Rewritten commands
 - [ ] Collision avoidance if more than one user joins
-- [ ] Importing of soundbytes from youtube - `!tada new intro <youtube-url> <start h:m:s> <stop h:m:s>`
+- [x] Importing of soundbytes from youtube - `!tada new intro <youtube-url> <start h:m:s> <stop h:m:s>`
 - [ ] 'Black'/'White' list for voice channels
 - [ ] Persistent Backend for Configuration
 - [ ] Config from direct messages

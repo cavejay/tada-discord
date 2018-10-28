@@ -57,7 +57,7 @@ async function handleVoiceChannelEvent (member,channel,db,config) {
         p.info(`Bot has joined channel ${channel.name} to 'tada' ${member.displayName} with a snippet from a youtube video: '${chosenIntro.url}'`);
         
         const streamOptions = { seek: 0, volume: 1 };
-        const stream = ytdl(chosenIntro.url, { filter : 'audioonly' });
+        const stream = ytdl(chosenIntro.url, { filter : 'audioonly'});
 
         // create the dispatcher to play the tada noise
         dispatcher = await connection.playStream(stream, streamOptions);
@@ -74,6 +74,13 @@ async function handleVoiceChannelEvent (member,channel,db,config) {
         dispatcher = await connection.playFile(soundFile);
         p.info(`Playing from ${soundFile}`)
     }
+
+    dispatcher.on("start", s => {
+        setTimeout(() => {
+            p.info("Ending dispatcher at 4 seconds")
+            dispatcher.end('Max video time reached')
+          }, config.maxIntroTime);
+    })
 
     // when it ends let us know
     dispatcher.on("end", () => {

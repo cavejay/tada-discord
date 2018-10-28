@@ -3,6 +3,7 @@
     "type": "file",
     "key": "tada"
   },
+  "maxIntroTime": 6000,
   "prefix": "!",
   "owner": "asdfadsfasdf",
   "auth": {

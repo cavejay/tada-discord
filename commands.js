@@ -1,6 +1,7 @@
 const p = require("./loggerFactory")("Command");
 const soundsMeta = require('./sounds/sounds.config.json')
 const strings = require('./strings.json')
+const ytdl = require('ytdl-core');
 
 /*
     List of commands we want to support
@@ -97,7 +98,7 @@ command.set.cmd = {
             }
 
         // If the introChoice is more than 1 word or starts with either of the generic yt urls 
-        } else if (args > 4 || introChoice.startsWith('https://www.youtube.com') || introChoice.startsWith('https://youtu.be')){
+        } else if (ytdl.validateURL(args[3])){
             p.info(`${introChoice} appears to be a youtube style intro`)
 
             // Do we have time stamps?
