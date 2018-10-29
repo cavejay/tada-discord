@@ -16,7 +16,8 @@ Discord Bot for dramatic entrances
 - [ ] Persistent Backend for Configuration
 - [ ] Config from direct messages
 - [ ] Entry/exit time-out to prevent spam
+- [ ] Site to upload files based on passcode provided by bot
+- [ ] Cache yt snippet to disk - how to prevent file build up from people refining their intro?
 - [ ] Dockerfile w/ build
-
 
 https://github.com/fent/node-ytdl-core
