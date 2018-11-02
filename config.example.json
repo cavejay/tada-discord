@@ -1,10 +1,7 @@
 {
-  "newUserDefault": {
-    "type": "file",
-    "key": "tada"
-  },
   "maxIntroTime": 6000,
   "prefix": "!",
+  "playing": "!tada <command>",
   "owner": "asdfadsfasdf",
   "auth": {
     "client": {
@@ -15,5 +12,14 @@
       "token": "jhdlkajfhdlkjfhalkdf.lajkshdlfkjahdsf-asdfasdf-asdfsdf",
       "permissions": "0008"
     }
+  },
+  "newUserDefault": {
+    "type": "file",
+    "key": "tada"
+  },
+  "introThrottling": {
+    "frequency": 2,
+    "period": 300000,
+    "timeout": 1500000
   }
 }
