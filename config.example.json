@@ -2,6 +2,7 @@
   "maxIntroTime": 6000,
   "prefix": "!",
   "playing": "!tada <command>",
+  "soundStorageFolder": "./sounds",
   "owner": "asdfadsfasdf",
   "auth": {
     "client": {
