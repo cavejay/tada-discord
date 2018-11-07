@@ -11,14 +11,13 @@ Discord Bot for dramatic entrances
 - [x] 'Playing Status'
 - [x] Rewritten commands
 - [x] Importing of soundbytes from youtube - `!tada new intro <youtube-url>` The first 6 seconds are played
+- [ ] Files messaged to the bot can be turned into intros by the name of the file
+- [ ] New users or users still using the default noise are giving a random set of intros
 - [ ] Entry/exit time-out to prevent spam - eg. If user joins 2 times in 5 minutes their intro will be timed out for 25 minutes. Frequency/Period/Timeout are all set in config file
-- [ ] Collision avoidance if more than one user joins
+- [ ] -Collision avoidance if more than one user joins- It doesn't look like this is an issue?
 - [ ] 'Black'/'White' list for voice channels
 - [ ] Persistent Backend for Configuration
 - [ ] Config from direct messages
-- [ ] -Cache yt snippet to disk - how to prevent file build up from people refining their intro?-
-- [ ] Files messaged to the bot can be turned into intros by the name of the file
-- [ ] New users or users still using the default noise are giving a random set of intros
 - [ ] Dockerfile w/ build
 
 # How even use?

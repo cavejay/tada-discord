@@ -4,8 +4,9 @@
   "description": "Discord Bot for dramatic entrances",
   "main": "index.js",
   "scripts": {
+    "start": "node ./index.js | pino-pretty-min",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json"
+    "dev": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json | pino-pretty-min"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
     "pino": "^5.7.0",
     "pino-pretty": "^2.2.2",
     "ytdl-core": "^0.26.3"
+  },
+  "devDependencies": {
+    "pino-pretty-min": "^0.2.1"
   }
 }
