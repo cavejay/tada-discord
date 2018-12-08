@@ -12,6 +12,8 @@ Discord Bot for dramatic entrances
 - [x] Rewritten commands
 - [x] Importing of soundbytes from youtube - `!tada new intro <youtube-url>` The first 6 seconds are played
 - [ ] Files messaged to the bot can be turned into intros by the name of the file
+- [ ] allow user customisable 'groups' of intros
+- [ ] random intros, either first time or every time
 - [ ] New users or users still using the default noise are giving a random set of intros
 - [ ] Entry/exit time-out to prevent spam - eg. If user joins 2 times in 5 minutes their intro will be timed out for 25 minutes. Frequency/Period/Timeout are all set in config file
 - [ ] -Collision avoidance if more than one user joins- It doesn't look like this is an issue?
@@ -26,6 +28,6 @@ Discord Bot for dramatic entrances
 2. Files sent to tada with the naming standard sickintro.default.mp3 will be recognised as 'default' intros
 3. There are no private intros
 4. There is a maximum number of saved files (50). Oldest unused files are cleaned first
-5. 
+5.
 
 https://github.com/fent/node-ytdl-core
