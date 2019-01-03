@@ -1,5 +1,3 @@
-const Discord = require("discord.js"); // Import the discord.js module
-const client = new Discord.Client(); // Create an instance of a Discord client
 const config = require("./config.json");
 
 const db = require("./lib/db");
