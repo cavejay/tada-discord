@@ -19,9 +19,5 @@
     "type": "file",
     "key": "tada"
   },
-  "introThrottling": {
-    "frequency": 2,
-    "period": 300000,
-    "timeout": 1500000
-  }
+  "introDebounce": 10000
 }
