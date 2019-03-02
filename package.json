@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./index.js | pino-pretty-min",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json | pino-pretty-min"
+    "dev": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json | pino-pretty-min",
+    "dev-clean": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/cavejay/tada-discord#readme",
   "dependencies": {
     "discord.js": "^11.4.2",
+    "discord.js-commando": "^0.10.0",
     "ffmpeg-binaries": "^4.0.0",
     "nedb-promise": "^2.0.1",
     "node-cleanup": "^2.1.2",
@@ -27,6 +29,7 @@
     "pino": "^5.7.0",
     "pino-pretty": "^2.2.2",
     "promisepipe": "^3.0.0",
+    "sqlite": "^3.0.2",
     "ytdl-core": "^0.26.3"
   },
   "devDependencies": {
