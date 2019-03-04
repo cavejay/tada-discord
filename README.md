@@ -10,16 +10,17 @@ Discord Bot for dramatic entrances
 - [x] Have a way for a user to decide to _not_ have an intro
 - [x] 'Playing Status'
 - [x] Rewritten commands
-- [x] Importing of soundbytes from youtube - `!tada new intro <youtube-url>` The first 6 seconds are played
+- <strike>[x] Importing of soundbytes from youtube - `!tada new intro <youtube-url>` The first 6 seconds are played</strike>
 - [x] Files messaged to the bot can be turned into intros by the name of the file
+- [x] Intro 'debounce' **no more join/rejoin shenanigans to spam your intro**
 - [ ] Better configuration and command system
 - [ ] Allow user customisable 'groups' of intros
 - [ ] Random intros, either first time or every time
 - [ ] New users or users still using the default noise are given a random set of intros
 - [ ] Entry/exit time-out to prevent spam - eg. If user joins 2 times in 5 minutes their intro will be timed out for 25 minutes. Frequency/Period/Timeout are all set in config file
-- [ ] -Collision avoidance if more than one user joins- It doesn't look like this is an issue?
+- [ ] -Collision avoidance if more than one user joins - Currently users that join during the playing of an intro are ignored by Tada
 - [ ] 'Black'/'White' list for voice channels
-- [ ] Persistent Backend for Configuration
+- [ ] Persistent Backend for Configuration - currently using nedb, may move to something else oneday
 - [ ] Config from direct messages
 - [ ] Dockerfile w/ build
 
@@ -29,6 +30,3 @@ Discord Bot for dramatic entrances
 2. Files sent to tada with the naming standard sickintro.default.mp3 will be recognised as 'default' intros
 3. There are no private intros
 4. There is a maximum number of saved files (50). Oldest unused files are cleaned first
-5.
-
-https://github.com/fent/node-ytdl-core
