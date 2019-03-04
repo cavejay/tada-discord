@@ -30,6 +30,7 @@ The Discord Bot for dramatic entrances
 2. Files sent to tada with the naming standard sickintro.default.mp3 will be recognised as 'default' intros
 3. There are no private intros
 4. There is a maximum number of saved files (50). Oldest unused files are cleaned first
+5. Intros are currently global.
 
 ## How even install
 
@@ -38,7 +39,7 @@ The Discord Bot for dramatic entrances
 3. `cd tada-discord && npm i`
 4. `cp config.example.json config.json && vi config.json`
 5. Fill in the blanks and/or customise that config. Necessary things to fill are the auth.client.\*, the auth.bot.token and the owner fields. Perms are optional, I apparently use "53677376"
-6. `npm start` to run the bot. Once it's up and running you'll need to invite it to your Discord Server by visiting the "invite this bot" link that is unique for each bot. There's a tutorial somewhere with this info.
+6. `npm start` to run the bot. You can invite your bot by creating an Oauth2 link from the developer console. Go to the link you generate and add it to the server you want.
 7. I would advise running Tada with pm2. `sudo npm -g i pm2 && pm2 start index.js` as that way if it dies it'll ressurect and you get nice log keeping etc.
 8. Once your bot is online send it <1MB .mp3 files. It'll save them to disk and make them available to set as your intro with tada-intro name-of-file-you-sent-minus-the-.mp3-bit.
 9. Make a Baby Shark intro and troll your friends (and yourself)
