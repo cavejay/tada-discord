@@ -7,7 +7,8 @@
     "start": "node ./index.js | pino-pretty-min",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json | pino-pretty-min",
-    "dev-clean": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json"
+    "dev-clean": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json",
+    "dev-filter": "npm run dev-clean | grep -oP \"msg\\\":\\\"(.*?)\\\",\""
   },
   "repository": {
     "type": "git",
@@ -26,11 +27,10 @@
     "nedb-promise": "^2.0.1",
     "node-cleanup": "^2.1.2",
     "node-opus": "^0.3.0",
-    "pino": "^5.7.0",
-    "pino-pretty": "^2.2.2",
+    "pino": "^5.11.1",
+    "pino-pretty": "^2.5.0",
     "promisepipe": "^3.0.0",
-    "sqlite": "^3.0.2",
-    "ytdl-core": "^0.26.3"
+    "sqlite": "^3.0.2"
   },
   "devDependencies": {
     "pino-pretty-min": "^0.2.1"
