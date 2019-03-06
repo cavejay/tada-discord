@@ -26,7 +26,7 @@
     "ffmpeg-binaries": "^4.0.0",
     "nedb-promise": "^2.0.1",
     "node-cleanup": "^2.1.2",
-    "node-opus": "^0.3.0",
+    "node-opus": "^0.3.1",
     "pino": "^5.11.1",
     "pino-pretty": "^2.5.0",
     "promisepipe": "^3.0.0",
