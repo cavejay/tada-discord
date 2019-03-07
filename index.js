@@ -9,6 +9,8 @@ async function Main() {
   soundManager.init({ db, config });
   const Bot = require("./lib/bot/bot.main.js")({ db, config, soundManager });
 
+  Bot.soundManager = soundManager;
+
   // Add Commands to Bot
   AddCommands(Bot);
 

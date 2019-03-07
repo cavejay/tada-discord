@@ -1,7 +1,7 @@
 {
   "maxIntroTime": 6000,
   "maxIntroSize": 512000,
-  "prefix": "!",
+  "prefix": "!tada",
   "playing": "!tada <command>",
   "soundStorageFolder": "./sounds",
   "owner": "asdfadsfasdf",
