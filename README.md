@@ -13,6 +13,7 @@ The Discord Bot for dramatic entrances
 - <strike>[x] Importing of soundbytes from youtube - `!tada new intro <youtube-url>` The first 6 seconds are played</strike>
 - [x] Files messaged to the bot can be turned into intros by the name of the file
 - [x] Intro 'debounce' **no more join/rejoin shenanigans to spam your intro**
+- [ ] Fixing the Caching etc of sounds and intros and users - This is not the db's job
 - [ ] Segregating Guilds because not everyone should get everything all the time
 - [ ] 'Black'/'White' list for voice channels
 - [ ] Better configuration and command system
