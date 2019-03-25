@@ -13,13 +13,14 @@ The Discord Bot for dramatic entrances
 - <strike>[x] Importing of soundbytes from youtube - `!tada new intro <youtube-url>` The first 6 seconds are played</strike>
 - [x] Files messaged to the bot can be turned into intros by the name of the file
 - [x] Intro 'debounce' **no more join/rejoin shenanigans to spam your intro**
+- [ ] Segregating Guilds because not everyone should get everything all the time
+- [ ] 'Black'/'White' list for voice channels
 - [ ] Better configuration and command system
 - [ ] Allow user customisable 'groups' of intros
 - [ ] Random intros, either first time or every time
 - [ ] New users or users still using the default noise are given a random set of intros
 - [ ] Entry/exit time-out to prevent spam - eg. If user joins 2 times in 5 minutes their intro will be timed out for 25 minutes. Frequency/Period/Timeout are all set in config file
 - [ ] -Collision avoidance if more than one user joins - Currently users that join during the playing of an intro are ignored by Tada
-- [ ] 'Black'/'White' list for voice channels
 - [ ] Persistent Backend for Configuration - currently using nedb, may move to something else oneday
 - [ ] Config from direct messages
 - [ ] Dockerfile w/ build
