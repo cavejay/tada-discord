@@ -14,7 +14,7 @@ function Main() {
 
   fileManager.init({ config });
   soundManager.init({ db, config, Bot, fileManager });
-  userManager.init({ db, config, Bot });
+  userManager.init({ db, config, Bot, soundManager });
 
   Bot.soundManager = soundManager;
   Bot.userManager = userManager;
