@@ -9,7 +9,7 @@ const fileManager = require("./lib/fileManager");
 
 const AddCommands = require("./lib/addCommands");
 
-async function Main() {
+function Main() {
   const Bot = require("./lib/bot/bot.main.js")({ db, config });
 
   fileManager.init({ config });
@@ -29,5 +29,5 @@ async function Main() {
 try {
   Main();
 } catch (err) {
-  p.error(err);
+  p.error(`MAIN ERROR: ${err}`);
 }

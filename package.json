@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node ./index.js | pino-pretty-min",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json | pino-pretty-min",
-    "dev-clean": "nodemon index.js -- -w index.js -w lib/** -w config.json -w strings.json",
+    "dev": "nodemon index.js -- -w index.js -w lib/** -w config.json | pino-pretty-min",
+    "dev-clean": "nodemon index.js -- -w index.js -w lib/** -w config.json",
     "dev-filter": "npm run dev-clean | grep -oP \"msg\\\":\\\"(.*?)\\\",\""
   },
   "repository": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/cavejay/tada-discord#readme",
   "dependencies": {
+    "common-tags": "^1.8.0",
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "ffmpeg-binaries": "^4.0.0",
