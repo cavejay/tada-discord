@@ -3,9 +3,10 @@ const p = require("./lib/loggerFactory")("index");
 
 const db = require("./lib/db");
 
-const soundManager = require("./lib/soundManager");
-const userManager = require("./lib/userManager");
-const fileManager = require("./lib/fileManager");
+const soundManager = require("./lib/manager/soundManager");
+const userManager = require("./lib/manager/userManager");
+const fileManager = require("./lib/manager/fileManager");
+const guildManager = require("./lib/manager/guildManager");
 
 const AddCommands = require("./lib/addCommands");
 
@@ -14,7 +15,8 @@ function Main() {
 
   fileManager.init({ config });
   soundManager.init({ db, config, Bot, fileManager });
-  userManager.init({ db, config, Bot, soundManager });
+  guildManager.init({ db, config, Bot });
+  userManager.init({ db, config, Bot, soundManager, guildManager });
 
   Bot.soundManager = soundManager;
   Bot.userManager = userManager;
