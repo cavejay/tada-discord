@@ -10,26 +10,31 @@ const guildManager = require("./lib/manager/guildManager");
 
 const AddCommands = require("./lib/addCommands");
 
-function Main() {
+async function Main() {
   const Bot = require("./lib/bot/bot.main.js")({ db, config });
 
   fileManager.init({ config });
-  soundManager.init({ db, config, Bot, fileManager });
-  guildManager.init({ db, config, Bot });
-  userManager.init({ db, config, Bot, soundManager, guildManager });
+  await soundManager.init({ db, config, Bot, fileManager });
+  // guildManager.init({ db, config, Bot });
+  // userManager.init({ db, config, Bot, soundManager, guildManager });
 
-  Bot.soundManager = soundManager;
-  Bot.userManager = userManager;
+  // Bot.soundManager = soundManager;
+  // Bot.userManager = userManager;
 
-  // Add Commands to Bot
-  AddCommands(Bot);
+  // // Add Commands to Bot
+  // AddCommands(Bot);
 
-  // Log our bot in using the token from https://discordapp.com/developers/applications/me
-  Bot.login(config.auth.bot.token);
+  p.info("Starting DB report");
+  await db.bootReport();
+
+  // // Log our bot in using the token from https://discordapp.com/developers/applications/me
+  // Bot.login(config.auth.bot.token);
 }
 
-try {
-  Main();
-} catch (err) {
-  p.error(`MAIN ERROR: ${err}`);
-}
+(async () => {
+  try {
+    await Main();
+  } catch (err) {
+    p.error(`MAIN ERROR: ${err}`);
+  }
+})();
