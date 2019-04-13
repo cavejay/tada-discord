@@ -15,20 +15,20 @@ async function Main() {
 
   fileManager.init({ config });
   await soundManager.init({ db, config, Bot, fileManager });
-  // guildManager.init({ db, config, Bot });
-  // userManager.init({ db, config, Bot, soundManager, guildManager });
+  guildManager.init({ db, config, Bot });
+  userManager.init({ db, config, Bot, soundManager, guildManager });
 
-  // Bot.soundManager = soundManager;
-  // Bot.userManager = userManager;
+  Bot.soundManager = soundManager;
+  Bot.userManager = userManager;
 
-  // // Add Commands to Bot
+  // Add Commands to Bot
   // AddCommands(Bot);
 
   p.info("Starting DB report");
   await db.bootReport();
 
-  // // Log our bot in using the token from https://discordapp.com/developers/applications/me
-  // Bot.login(config.auth.bot.token);
+  // Log our bot in using the token from https://discordapp.com/developers/applications/me
+  Bot.login(config.auth.bot.token);
 }
 
 (async () => {
