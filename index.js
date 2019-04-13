@@ -24,8 +24,8 @@ async function Main() {
   // Add Commands to Bot
   // AddCommands(Bot);
 
-  p.info("Starting DB report");
-  await db.bootReport();
+  // p.info("Starting DB report");
+  // await db.bootReport();
 
   // Log our bot in using the token from https://discordapp.com/developers/applications/me
   Bot.login(config.auth.bot.token);
