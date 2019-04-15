@@ -28,8 +28,10 @@ async function Main() {
   // await db.bootReport();
 
   // Log our bot in using the token from https://discordapp.com/developers/applications/me
-  Bot.login(config.auth.bot.token);
+  await Bot.login(config.auth.bot.token);
 }
+
+process.on("unhandledRejection", error => p.error("Uncaught Promise Rejection", error));
 
 (async () => {
   try {
