@@ -26,7 +26,6 @@
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "erlpack": "github:discordapp/erlpack",
-    "ffmpeg-binaries": "^4.0.0",
     "nedb-promise": "^2.0.1",
     "node-cleanup": "^2.1.2",
     "node-opus": "^0.3.1",
@@ -35,8 +34,7 @@
     "pino-pretty": "^2.5.0",
     "promisepipe": "^3.0.0",
     "sanitize-filename": "^1.6.1",
-    "sqlite": "^3.0.2",
-    "ytdl-core": "^0.29.1"
+    "sqlite": "^3.0.2"
   },
   "devDependencies": {
     "pino-pretty-min": "^0.2.1"
