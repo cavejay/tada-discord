@@ -22,7 +22,7 @@ async function Main() {
   Bot.userManager = userManager;
 
   // Add Commands to Bot
-  // AddCommands(Bot);
+  AddCommands(Bot);
 
   // p.info("Starting DB report");
   // await db.bootReport();
@@ -30,6 +30,8 @@ async function Main() {
   // Log our bot in using the token from https://discordapp.com/developers/applications/me
   await Bot.login(config.auth.bot.token);
 }
+
+// Check here whether ffmpeg is installed
 
 process.on("unhandledRejection", error => p.error("Uncaught Promise Rejection", error));
 
