@@ -33,7 +33,7 @@ async function Main() {
 
 // Check here whether ffmpeg is installed
 
-process.on("unhandledRejection", error => p.error("Uncaught Promise Rejection", error));
+process.on("unhandledRejection", error => p.error("Uncaught Promise Rejection", error.stack || error));
 
 (async () => {
   try {
