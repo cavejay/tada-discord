@@ -3,11 +3,6 @@ const p = require("./lib/loggerFactory")("index");
 
 const db = require("./lib/db");
 
-const soundManager = require("./lib/manager/soundManager");
-const userManager = require("./lib/manager/userManager");
-const fileManager = require("./lib/manager/fileManager");
-const guildManager = require("./lib/manager/guildManager");
-
 const AddCommands = require("./lib/addCommands");
 
 async function Main() {
