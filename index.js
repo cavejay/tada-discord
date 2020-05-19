@@ -1,39 +1,5 @@
-const config = require("./config.json");
 const p = require("./lib/loggerFactory")("index");
-
-const db = require("./lib/db");
+const env = process.env.NODE_ENV || 'development'
+const cfg = require('./config.'+env);
 
 const AddCommands = require("./lib/addCommands");
-
-async function Main() {
-  const Bot = require("./lib/bot/bot.main.js")({ db, config });
-
-  fileManager.init({ config });
-  await soundManager.init({ db, config, Bot, fileManager });
-  guildManager.init({ db, config, Bot });
-  userManager.init({ db, config, Bot, soundManager, guildManager });
-
-  Bot.soundManager = soundManager;
-  Bot.userManager = userManager;
-
-  // Add Commands to Bot
-  AddCommands(Bot);
-
-  // p.info("Starting DB report");
-  // await db.bootReport();
-
-  // Log our bot in using the token from https://discordapp.com/developers/applications/me
-  await Bot.login(config.auth.bot.token);
-}
-
-// Check here whether ffmpeg is installed
-
-process.on("unhandledRejection", error => p.error("Uncaught Promise Rejection", error.stack || error));
-
-(async () => {
-  try {
-    await Main();
-  } catch (err) {
-    p.error(`MAIN ERROR: ${err}`);
-  }
-})();
