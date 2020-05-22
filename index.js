@@ -6,6 +6,8 @@ const cfg = require("./config." + env);
 const Commando = require("discord.js-commando");
 const nodeCleanup = require("node-cleanup");
 
+const { EventGuide } = require("./lib/Eventfunnel");
+
 // const AddCommands = require("./lib/addCommands");
 
 p.info("Starting Tada!");
@@ -14,44 +16,53 @@ const client = new Commando.Client({
   owners: cfg.owner,
 });
 
-client.on("ready", () => {
-  p.info("I am ready");
-});
+let botEvents = new EventGuide();
 
-client.on("message", (message) => {
+botEvents.on("message", (ctx) => {
+  let message = ctx.data.message;
+
   if (message.content === "ping") {
     message.channel.send("pong");
   }
 });
 
-client.on("ready", async () => {
+botEvents.on("ready", () => {
   p.info("We're online!");
 
   // Set the client user's presence
-  try {
-    const presenceOutput = await client.user.setPresence({
+  client.user
+    .setPresence({
       activity: {
-        name: "with discord.js",
+        name: cfg.playing,
       },
       status: "idle",
-    });
-    p.info(presenceOutput);
-  } catch (e) {
-    p.error(e);
-  }
+    })
+    .then(() => {
+      p.info(`Set bot's 'playing' status to '${cfg.playing}'`);
+    })
+    .catch(p.error);
 });
 
+//
+//////    Discord Logging setup
+
 // let us know about errors
-client.on("error", (e) => p.error(`Client ERROR: ${e}`));
-client.on("warn", (w) => p.warn(`Client WARNING: ${w}`));
+botEvents.on("error", (ctx) => p.error(`Client ERROR: ${ctx.data}`));
+botEvents.on("warn", (ctx) => p.warn(`Client WARNING: ${ctx.data}`));
 // .on("debug", p.info)
-client.on("disconnect", () => {
+botEvents.on("disconnect", () => {
   p.warn("Disconnected!");
 });
-client.on("reconnecting", () => {
+botEvents.on("invalidated", () => {
+  p.error("Discord Client session was invalidated? Unsure please attend");
+});
+botEvents.on("reconnecting", () => {
   p.warn("Reconnecting...");
 });
-client.on("debug", (d) => p.trace(`Client Debug: ${d}`));
+botEvents.on("debug", (ctx) => p.trace(`Client Debug: ${ctx.data}`));
+
+//
+////// Crash handler (an attempt)
 
 function exitHandler(exitCode, signal) {
   if (signal) {
@@ -67,4 +78,16 @@ function exitHandler(exitCode, signal) {
 }
 nodeCleanup(exitHandler);
 
+// async function eventFilter(ctx) {}
+
+// client.on("message", async (o) => {
+//   let ctx = {};
+//   ctx.event = "message";
+//   ctx.data = o;
+//   // eventFilter(ctx).catch(p.error);
+// });
+
+//
+///// Start the bot
+client.emit = botEvents.newEmitter(client); // update the emitter to our new one
 client.login(cfg.auth.bot.token);
