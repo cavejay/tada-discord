@@ -6,7 +6,7 @@ const cfg = require("./config." + env);
 const Commando = require("discord.js-commando");
 const nodeCleanup = require("node-cleanup");
 
-const { EventGuide } = require("./lib/Eventfunnel");
+const { EventRouter } = require("koala-event");
 
 // const AddCommands = require("./lib/addCommands");
 
@@ -16,7 +16,7 @@ const client = new Commando.Client({
   owners: cfg.owner,
 });
 
-let botEvents = new EventGuide();
+let botEvents = new EventRouter();
 
 botEvents.on("message", (ctx) => {
   let message = ctx.data.message;
@@ -77,15 +77,6 @@ function exitHandler(exitCode, signal) {
   }
 }
 nodeCleanup(exitHandler);
-
-// async function eventFilter(ctx) {}
-
-// client.on("message", async (o) => {
-//   let ctx = {};
-//   ctx.event = "message";
-//   ctx.data = o;
-//   // eventFilter(ctx).catch(p.error);
-// });
 
 //
 ///// Start the bot

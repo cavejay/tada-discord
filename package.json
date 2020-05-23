@@ -23,6 +23,7 @@
     "discord.js": "^12.2.0",
     "discord.js-commando": "github:discordjs/Commando",
     "koa-compose": "^4.1.0",
+    "koala-event": "github:cavejay/koala-event",
     "moment": "^2.26.0",
     "node-cleanup": "^2.1.2",
     "pino": "^6.2.1",
