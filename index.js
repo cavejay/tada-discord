@@ -72,6 +72,50 @@ function lonelyInAChannelCheck(channel) {
   }
 }
 
+async function playTadaNoise(channel) {
+  if (channel.connection) {
+    // We're already in this channel
+    p.info(`Bot is already in ${channel.name}`);
+    return;
+  }
+
+  soundFile = "./sounds/tada.mp3";
+
+  // Cover our butts incase we're already intro'ing
+  let connection = await channel.join();
+  let msg = `Bot has joined channel ${channel.name} to 'tada' someone`;
+  p.info({ msg });
+
+  // create the dispatcher to play the tada noise
+  const dispatcher = await connection.play(soundFile);
+
+  p.info(`Playing from ${soundFile}`);
+  dispatcher.on("start", (s) => {
+    setTimeout(() => {
+      // If the dispatcher hasn't ended then end it
+      if (!dispatcher.destroyed) {
+        p.info(`Ending dispatcher at ${cfg.maxIntroTime}ms`);
+        dispatcher.end("Max video time reached");
+      }
+    }, cfg.maxIntroTime);
+  });
+
+  // when it ends let us know
+  dispatcher.on("speaking", (isSpeaking) => {
+    if (!isSpeaking) {
+      let msg = `Bot has finished 'tadaing' in channel ${channel.name}`;
+      p.info({ msg });
+
+      // leave the channel
+      channel.leave();
+    }
+  });
+
+  dispatcher.on("error", (err) => {
+    p.error("dispatcher error:", err);
+  });
+}
+
 // 'voiceStateUpdate' event chain
 // Process out the enter/leave voiceChannels
 botEvents.on("voiceStateUpdate", async (ctx, next) => {
@@ -142,10 +186,7 @@ botEvents.on("tada_userJoinEvent", async (ctx, next) => {
   let msg = `${ctx.newState.member.user.username} joined channel ${ctx.newState.channel.name} in ${ctx.newState.guild.name}`;
   p.info(msg);
 
-  ctx.newState.channel
-    .join()
-    .then((connection) => p.info("Connected!"))
-    .catch((e) => p.error(e.message));
+  await playTadaNoise(ctx.newState.channel);
 });
 
 // Setup the tada_userLeaveEvent event
