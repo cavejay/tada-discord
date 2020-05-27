@@ -7,8 +7,8 @@ The Discord Bot for dramatic entrances.
 ### Necessary
 
 - [x] 'Playing Status'
-- [ ] Action when user joins a voice channel
-- [ ] Play a 'noise' when user joins a voice channel
+- [x] Action when user joins a voice channel
+- [x] Play a 'noise' when user joins a voice channel
 - [ ] Play a user specific noise when a user joins vc
 - [ ] Have a way for a user to decide to _not_ have an intro
 - [ ] Files messaged to the bot can be turned into intros by the name of the file
