@@ -34,6 +34,7 @@
     "node-cleanup": "^2.1.2",
     "pino": "^6.2.1",
     "pino-pretty": "^4.0.0",
+    "rethinkdb": "^2.4.2",
     "utf-8-validate": "^5.0.2",
     "zlib-sync": "^0.1.6"
   },

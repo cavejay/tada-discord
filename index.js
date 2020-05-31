@@ -4,7 +4,21 @@ const cfg = require("./config." + env);
 
 const TadaBot = require("./lib/bot");
 
-const Bot = new TadaBot({ cfg });
-Bot.start();
-
 const Api = require("./lib/api")({ cfg });
+
+const TBDatabase = require("./lib/api/database.main");
+
+async function Main() {
+  let db = await TBDatabase.build({ cfg });
+
+  //
+
+  // const Bot = new TadaBot({ cfg });
+  // Bot.start();
+}
+
+try {
+  Main();
+} catch (err) {
+  p.error(err);
+}
