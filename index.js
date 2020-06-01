@@ -4,15 +4,15 @@ const cfg = require("./config." + env);
 
 const TadaBot = require("./lib/bot");
 
-const Api = require("./lib/api")({ cfg });
+const Api = require("./lib/api");
 
 const TBDatabase = require("./lib/api/database.main");
 
 async function Main() {
-  let db = await TBDatabase.build({ cfg });
+  // Initialise the API Component
+  let apiComponent = await Api({ cfg });
 
   //
-
   // const Bot = new TadaBot({ cfg });
   // Bot.start();
 }
