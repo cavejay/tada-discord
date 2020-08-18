@@ -2,6 +2,13 @@
 
 The Discord Bot for dramatic entrances
 
+---
+## Notice
+
+Work is currently being done in the v2 branch to greatly improve this discord bot for multi-guild operation. 
+
+---
+
 ## Tasklist
 
 - [x] Action when user joins a voice channel
