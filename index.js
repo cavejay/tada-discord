@@ -10,11 +10,11 @@ const TBDatabase = require("./lib/api/database.main");
 
 async function Main() {
   // Initialise the API Component
-  let apiComponent = await Api({ cfg });
+  // let apiComponent = await Api({ cfg });
 
   //
-  // const Bot = new TadaBot({ cfg });
-  // Bot.start();
+  const Bot = new TadaBot({ cfg });
+  Bot.start();
 }
 
 try {
