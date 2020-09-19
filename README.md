@@ -1,5 +1,7 @@
 # tada-discord
 
+[![Build Status](https://drone.sablecliff.com/api/badges/cavejay/tada-discord/status.svg)](https://drone.sablecliff.com/cavejay/tada-discord)
+
 The Discord Bot for dramatic entrances.
 
 ## Tasklist
