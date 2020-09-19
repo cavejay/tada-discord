@@ -4,11 +4,25 @@ name: default
 
 steps:
   - name: Use Plugin to push event to dt environment
-    image: cavejay/dynatrace-drone-events
+    image: cavejay/dynatrace-drone-events:0.1
     settings:
       dynatrace_environment:
         from_secret: dtenv
       dynatrace_api_token:
         from_secret: dttoken
-      tagrules:
-        - HOST=tada-discord
+      dynatrace_entity_type: HOST
+      dynatrace_tag_rule: tada-discord
+
+  - name: Notify
+    image: appleboy/drone-discord
+    settings:
+      webhook_id:
+        from_secret: discord_webhook_id
+      webhook_token:
+        from_secret: discord_webhook_token
+      message: >
+        {{#success build.status}}
+          dynatrace-drone-events build {{build.number}} succeeded. Yay.
+        {{else}}
+          dynatrace-drone-events build {{build.number}} failed. Fix me please.
+        {{/success}}
