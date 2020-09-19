@@ -3,13 +3,12 @@ type: docker
 name: default
 
 steps:
-  - name: greeting
-    image: alpine
-    commands:
-      - echo hello
-      - echo world
-  - name: test
-    image: node
-    commands:
-      - npm install
-      - npm test
+  - name: Use Plugin to push event to dt environment
+    image: cavejay/dynatrace-drone-events
+    settings:
+      dynatrace_environment:
+        from_secret: dtenv
+      dynatrace_api_token:
+        from_secret: dttoken
+      tagrules:
+        - HOST=tada-discord
