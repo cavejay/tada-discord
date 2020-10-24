@@ -3,7 +3,6 @@ const env = process.env.NODE_ENV || "development";
 const cfg = require("./config." + env);
 
 const TadaBot = require("./lib/bot");
-
 const TadaDBConnection = require("./lib/api/database.main");
 
 const Api = require("./lib/api");
