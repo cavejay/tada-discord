@@ -10,8 +10,6 @@ steps:
         from_secret: dtenv
       dynatrace_api_token:
         from_secret: dttoken
-      dynatrace_entity_type: HOST
-      dynatrace_tag_rule: tada-discord
       tagrules:
         - HOST=tada-discord
 
