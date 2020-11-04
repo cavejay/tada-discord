@@ -60,7 +60,10 @@ typings/
 # next.js build output
 .next
 
-config.json
+config.*.js
+!config.default.js
 tada.db
 *.mp3
 *.db
+
+lib2

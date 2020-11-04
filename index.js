@@ -1,29 +1,23 @@
-const config = require("./config.json");
 const p = require("./lib/loggerFactory")("index");
+const env = process.env.NODE_ENV || "development";
+const cfg = require("./config." + env);
 
-const db = require("./lib/db");
+const TadaBot = require("./lib/bot");
+const TadaDBConnection = require("./lib/api/database.main");
 
-const soundManager = require("./lib/soundManager");
-const userManager = require("./lib/userManager");
-const fileManager = require("./lib/fileManager");
-
-const AddCommands = require("./lib/addCommands");
+const Api = require("./lib/api");
 
 async function Main() {
-  const Bot = require("./lib/bot/bot.main.js")({ db, config });
+  // Initialise the API Component
+  // let apiComponent = await Api({ cfg });
 
-  fileManager.init({ config });
-  soundManager.init({ db, config, Bot, fileManager });
-  userManager.init({ db, config, Bot });
+  // db
+  global.db = new TadaDBConnection({ cfg });
+  await global.db.init();
 
-  Bot.soundManager = soundManager;
-  Bot.userManager = userManager;
-
-  // Add Commands to Bot
-  AddCommands(Bot);
-
-  // Log our bot in using the token from https://discordapp.com/developers/applications/me
-  Bot.login(config.auth.bot.token);
+  //
+  const Bot = new TadaBot({ cfg });
+  Bot.start();
 }
 
 try {
