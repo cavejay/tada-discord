@@ -11,7 +11,6 @@ config.bot.defaultSound = "./sounds/tada.mp3";
 config.bot.maxIntroTime = 5000;
 config.bot.maxIntroSize = 512000;
 config.bot.introDebounce = 1500;
-config.bot.newUserDefault = "5ecb17ce781bc41597228f8c1032e25f18b64e46";
 
 // Api
 config.api = {};
