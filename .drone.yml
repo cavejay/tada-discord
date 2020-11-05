@@ -13,6 +13,18 @@ steps:
       tagrules:
         - HOST=tada-discord
 
+  - name: docker w/ publish
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_user
+      password:
+        from_secret: docker_pw
+      repo: cavejay/tada-discord
+      tags: latest
+      auto_tag: true
+      dockerfile: ./dockerfile
+
   - name: Notify
     image: appleboy/drone-discord
     settings:
