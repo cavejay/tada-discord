@@ -61,6 +61,7 @@ typings/
 .next
 
 config.*.js
+ecosystem.config.js
 !config.default.js
 !config.container.js
 tada.db
