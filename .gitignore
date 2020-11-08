@@ -62,6 +62,7 @@ typings/
 
 config.*.js
 !config.default.js
+!config.container.js
 tada.db
 *.mp3
 *.db

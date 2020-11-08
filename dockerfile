@@ -12,8 +12,8 @@ RUN npm install
 COPY . .
 
 # Update the config
-ENV NODE_ENV=production
-COPY config.default.js config.production.js
+ENV TADA_CONFIG_ENV container
+COPY config.container.js .
 
 # start it
 CMD ["node", "index.js"]

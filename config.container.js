@@ -1,6 +1,6 @@
 let config = (module.exports = {});
 
-config.env = "production";
+config.env = process.env.NODE_ENV || "development";
 // config.hostname = 'dev.example.com';
 
 // Bot

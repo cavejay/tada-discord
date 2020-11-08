@@ -1,5 +1,5 @@
 const p = require("./lib/loggerFactory")("index");
-const env = process.env.NODE_ENV || "development";
+const env = process.env.TADA_CONFIG_ENV || "development";
 const cfg = require("./config." + env);
 
 const TadaBot = require("./lib/bot");
