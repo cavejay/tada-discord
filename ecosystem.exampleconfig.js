@@ -10,8 +10,9 @@ module.exports = {
       watch: false,
       max_memory_restart: "1G",
       env: {
-        TADA_CONFIG_ENV: "container",
+        TADA_CONFIG_ENV: "container", // use config env 'container' for setting config via the environment
         NODE_ENV: "development",
+        // All config related process environment vars can be found in config.container.js
       },
     },
   ],
