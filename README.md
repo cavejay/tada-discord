@@ -26,7 +26,7 @@ The Discord Bot for dramatic entrances.
 
 ### Stretch Goals
 
-- [ ] Rewritten commands
+- [x] Rewritten commands
 - [ ] Fixing the Caching etc of sounds and intros and users - This is not the db's job
 - [ ] Intro 'debounce' **no more join/rejoin shenanigans to spam your intro**
 - [ ] 'Black'/'White' list for voice channels
