@@ -15,5 +15,14 @@ COPY . .
 ENV TADA_CONFIG_ENV container
 COPY config.container.js .
 
+# The other envvars that should be used (at minimum)
+# NODE_ENV: "development",
+# TADA_API_DATABASEADDR: "0.0.0.0",
+# TADA_API_DATABASEPORT: "28015",
+# TADA_DISCORD_OWNER: "asdfsdfdsf",
+# TADA_DISCORD_AUTH_CLIENT_ID: "asdfasdf",
+# TADA_DISCORD_AUTH_CLIENT_SECRET: "asdfasdf",
+# TADA_DISCORD_AUTH_BOT_TOKEN: "safsadf",
+
 # start it
 CMD ["node", "index.js"]

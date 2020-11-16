@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js | pino-pretty-min",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc ava",
+    "watch:ava": "ava --watch",
     "dev": "TADADB_NAME=tadadev nodemon index.js -- -w index.js -w lib/** -w config.*.js"
   },
   "repository": {
@@ -41,5 +42,8 @@
     "utf-8-validate": "^5.0.2",
     "zlib-sync": "^0.1.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "ava": "^3.13.0",
+    "nyc": "^15.0.0"
+  }
 }
