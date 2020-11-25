@@ -19,6 +19,7 @@ config.api.listeningAddr = process.env.TADA_API_LISTENINGADDR || "0.0.0.0";
 config.api.listeningPort = process.env.TADA_API_LISTENINGPORT || 8080;
 config.api.databaseAddr = process.env.TADA_API_DATABASEADDR || "0.0.0.0";
 config.api.databasePort = process.env.TADA_API_DATABASEPORT || "28015";
+config.api.databaseName = process.env.TADA_API_DATABASENAME || "TadaDB_v1";
 
 // Discord
 config.discord = {};

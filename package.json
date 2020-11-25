@@ -7,7 +7,7 @@
     "start": "node ./index.js | pino-pretty-min",
     "test": "nyc ava",
     "watch:ava": "ava --watch",
-    "dev": "TADADB_NAME=tadadev nodemon index.js -- -w index.js -w lib/** -w config.*.js"
+    "dev": "TADA_API_DATABASENAME=tadadev nodemon index.js -- -w index.js -w lib/** -w config.*.js"
   },
   "repository": {
     "type": "git",
