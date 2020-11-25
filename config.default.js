@@ -5,27 +5,33 @@ config.env = process.env.NODE_ENV || "development";
 
 // Bot
 config.bot = {};
-config.bot.prefix = "!tada ";
-config.bot.playing = "intros for all!";
-config.bot.defaultSound = "./sounds/tada.mp3";
-config.bot.maxIntroTime = 5000;
-config.bot.maxIntroSize = 512000;
-config.bot.introDebounce = 1500;
+config.bot.prefix = process.env.TADA_BOT_PREFIX || "!tada ";
+config.bot.playing = process.env.TADA_BOT_PLAYING || "intros for all!";
+config.bot.defaultSound =
+  process.env.TADA_BOT_DEFAULTSOUND || "./sounds/tada.mp3";
+config.bot.maxIntroTime = process.env.TADA_BOT_MAXINTROTIME || 5000;
+config.bot.maxIntroSize = process.env.TADA_BOT_MAXINTROSIZE || 512000;
+config.bot.introDebounce = process.env.TADA_BOT_INTRODEBOUNCE || 1500;
 
 // Api
 config.api = {};
-config.api.listeningAddr = "0.0.0.0";
-config.api.listeningPort = 8080;
-config.api.databaseAddr = "0.0.0.0";
-config.api.databasePort = "28015";
+config.api.listeningAddr = process.env.TADA_API_LISTENINGADDR || "0.0.0.0";
+config.api.listeningPort = process.env.TADA_API_LISTENINGPORT || 8080;
+config.api.databaseAddr = process.env.TADA_API_DATABASEADDR || "0.0.0.0";
+config.api.databasePort = process.env.TADA_API_DATABASEPORT || "28015";
+config.api.databaseName = process.env.TADA_API_DATABASENAME || "TadaDB_v1";
 
 // Discord
 config.discord = {};
-config.discord.owner = "252615330818166108";
+config.discord.owner = process.env.TADA_DISCORD_OWNER || "___fillme___";
 config.discord.auth = {};
 config.discord.auth.client = {};
-config.discord.auth.client.id = "123456789_fillme";
-config.discord.auth.client.secret = "abcdefghijklmnop_fillme";
+config.discord.auth.client.id =
+  process.env.TADA_DISCORD_AUTH_CLIENT_ID || "___fillme___";
+config.discord.auth.client.secret =
+  process.env.TADA_DISCORD_AUTH_CLIENT_SECRET || "___fillme___";
 config.discord.auth.bot = {};
-config.discord.auth.bot.token = "Please also fill me";
-config.discord.auth.bot.permissions = "3148864";
+config.discord.auth.bot.token =
+  process.env.TADA_DISCORD_AUTH_BOT_TOKEN || "___fillme___";
+config.discord.auth.bot.permissions =
+  process.env.TADA_DISCORD_AUTH_BOT_PERMISSIONS || "53677376";

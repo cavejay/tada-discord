@@ -12,10 +12,10 @@ RUN npm install
 COPY . .
 
 # Update the config
-ENV TADA_CONFIG_ENV container
-COPY config.container.js .
+ENV TADA_CONFIG_ENV default
+COPY config.default.js .
 
-# The other envvars that should be used (at minimum)
+# The other envvars that should be used (at minimum) - others are listed in the config.default.js file
 # NODE_ENV: "development",
 # TADA_API_DATABASEADDR: "0.0.0.0",
 # TADA_API_DATABASEPORT: "28015",
