@@ -1,12 +1,26 @@
 # Using https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
-FROM node:12
+FROM node:12-alpine
 
 WORKDIR /opt/tada-discord
 
 # Copy across the package and install the things
 COPY package*.json ./
-RUN npm install
+
+# Install required packages for npm install and remove them after use
+RUN apk --no-cache --virtual build-dependencies add \
+  git \
+  python \
+  make \
+  g++ \
+  && npm install \
+  && apk del build-dependencies
+
+# RUN npm install
 #RUN npm ci --only=production
+
+FROM node:12-alpine
+WORKDIR /opt/tada-discord
+COPY --from=0 /opt/tada-discord/ .
 
 # Bring things across
 COPY . .
