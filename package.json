@@ -32,7 +32,7 @@
     "koa-bodyparser": "^4.3.0",
     "koa-compose": "^4.1.0",
     "koa-mount": "^4.0.0",
-    "koala-event": "github:cavejay/koala-event",
+    "koala-event": "^1.0.0",
     "moment": "^2.26.0",
     "node-cleanup": "^2.1.2",
     "pino": "^6.2.1",
