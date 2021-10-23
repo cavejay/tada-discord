@@ -2,6 +2,11 @@ kind: pipeline
 type: docker
 name: default
 
+services:
+  - name: database
+    image: rethinkdb:2.4.0
+    command: [rethinkdb, --bind, all]
+
 steps:
   - name: Use Plugin to push event to dt environment
     image: cavejay/dynatrace-drone-events
@@ -12,6 +17,15 @@ steps:
         from_secret: dttoken
       tagrules:
         - HOST=tada-discord
+
+  - name: test
+    image: node
+    environment:
+      QS_DATABASE_NAME: tadatestingDB
+      DATABASE_HOST: database
+    commands:
+      - npm install
+      - npm test
 
   - name: docker w/ publish
     image: plugins/docker

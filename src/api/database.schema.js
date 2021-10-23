@@ -131,6 +131,11 @@ const guildExample = {
     disabled: false,
     volume: 1,
   },
+  introSpecificConfig: {
+    "92553ef1e1e7f0fbc299ab64310cc492bc0b886b5cace2d0a6c207c18b8a8766": {
+      volume: 1,
+    },
+  },
 };
 const guild = {
   $schema: "http://json-schema.org/schema#",
@@ -165,6 +170,14 @@ const guild = {
         },
       },
     },
+    introSpecificConfig: {
+      type: "object",
+      patternProperties: {
+        "^[0-9]+$": {
+          $ref: "#/definitions/introSpecificConfig",
+        },
+      },
+    },
     availableIntros: {
       type: "array",
       items: {
@@ -191,6 +204,12 @@ const guild = {
       type: "object",
       properties: {
         disabled: { type: "boolean" },
+        volume: { type: "number" },
+      },
+    },
+    introSpecificConfig: {
+      type: "object",
+      properties: {
         volume: { type: "number" },
       },
     },

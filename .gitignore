@@ -67,5 +67,7 @@ ecosystem.config.js
 tada.db
 *.mp3
 *.db
+envvar.txt
 
 lib2
+built

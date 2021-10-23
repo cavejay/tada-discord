@@ -115,12 +115,21 @@ async function getGuildIntroConfig(gid, id) {
       r
         .db(global.db.getDBName())
         .table("guilds")
-        .get(gid)("introSpecificConfig")
+        .get(gid)
         .keys()
-        .contains(id),
-      r.db(global.db.getDBName()).table("guilds").get(gid)(
-        "introSpecificConfig"
-      )(id),
+        .contains("introSpecificConfig"),
+      r.branch(
+        r
+          .db(global.db.getDBName())
+          .table("guilds")
+          .get(gid)("introSpecificConfig")
+          .keys()
+          .contains(id),
+        r.db(global.db.getDBName()).table("guilds").get(gid)(
+          "introSpecificConfig"
+        )(id),
+        { volume: 1 }
+      ),
       { volume: 1 }
     )
   );
