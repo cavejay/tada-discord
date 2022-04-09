@@ -33,7 +33,7 @@
     "koa-compose": "^4.1.0",
     "koa-mount": "^4.0.0",
     "koala-event": "^1.0.0",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "node-cleanup": "^2.1.2",
     "pino": "^6.2.1",
     "pino-pretty": "^4.0.0",
