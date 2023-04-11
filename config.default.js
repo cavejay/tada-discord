@@ -7,8 +7,7 @@ config.env = process.env.NODE_ENV || "development";
 config.bot = {};
 config.bot.prefix = process.env.TADA_BOT_PREFIX || "!tada ";
 config.bot.playing = process.env.TADA_BOT_PLAYING || "intros for all!";
-config.bot.defaultSound =
-  process.env.TADA_BOT_DEFAULTSOUND || "./sounds/tada.mp3";
+config.bot.defaultSound = process.env.TADA_BOT_DEFAULTSOUND || "./sounds/tada.mp3";
 config.bot.maxIntroTime = process.env.TADA_BOT_MAXINTROTIME || 5000;
 config.bot.maxIntroSize = process.env.TADA_BOT_MAXINTROSIZE || 512000;
 config.bot.introDebounce = process.env.TADA_BOT_INTRODEBOUNCE || 1500;
@@ -26,12 +25,8 @@ config.discord = {};
 config.discord.owner = process.env.TADA_DISCORD_OWNER || "___fillme___";
 config.discord.auth = {};
 config.discord.auth.client = {};
-config.discord.auth.client.id =
-  process.env.TADA_DISCORD_AUTH_CLIENT_ID || "___fillme___";
-config.discord.auth.client.secret =
-  process.env.TADA_DISCORD_AUTH_CLIENT_SECRET || "___fillme___";
+config.discord.auth.client.id = process.env.TADA_DISCORD_AUTH_CLIENT_ID || "___fillme___";
+config.discord.auth.client.secret = process.env.TADA_DISCORD_AUTH_CLIENT_SECRET || "___fillme___";
 config.discord.auth.bot = {};
-config.discord.auth.bot.token =
-  process.env.TADA_DISCORD_AUTH_BOT_TOKEN || "___fillme___";
-config.discord.auth.bot.permissions =
-  process.env.TADA_DISCORD_AUTH_BOT_PERMISSIONS || "53677376";
+config.discord.auth.bot.token = process.env.TADA_DISCORD_AUTH_BOT_TOKEN || "___fillme___";
+config.discord.auth.bot.permissions = process.env.TADA_DISCORD_AUTH_BOT_PERMISSIONS || "53677376";
