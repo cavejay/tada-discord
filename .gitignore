@@ -69,3 +69,5 @@ tada.db
 *.db
 
 lib2
+.envvar.dev
+tadadb_v1.backup.tar.gz
