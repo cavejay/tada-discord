@@ -1,0 +1,8 @@
+You can copy your crontab into an image, in order for the container launched from said image to run the job.
+Important: as noted in docker-cron issue 3: use LF, not CRLF for your cron file.
+See "Run a cron job with Docker" from Julien Boulay in his Ekito/docker-cron:
+Let’s create a new file called "hello-cron" to describe our job.
+
+# must be ended with a new line "LF" (Unix) and not "CRLF" (Windows)
+
+- - - - - echo "Hello world" >> /var/log/cron.log 2>&1
